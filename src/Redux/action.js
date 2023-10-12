@@ -7,3 +7,11 @@ export const addToCart = (product) => ({
     type: 'REMOVE_FROM_CART',
     product,
   });
+
+export const addProduct = (name, price) => {
+    ({
+      type: 'ADD_PRODUCT',
+      name,
+      price,
+    })
+  }
