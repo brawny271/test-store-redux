@@ -15,6 +15,13 @@ const initialState = {
           ...state,
           cart: state.cart.filter((item) => item.id !== action.product.id),
         };
+            case 'ADD_PRODUCT':
+          const { name, price } = action;
+          const newItem = { name, price };
+          return {
+            ...state,
+            items: [...state.items, newItem], 
+          };
       default:
         return state;
     }
