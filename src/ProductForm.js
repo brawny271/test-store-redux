@@ -1,50 +1,33 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addProduct } from './actions'; // Import the action to add a product
+import { addProduct } from './actions';
 
-function ProductForm() {
-  const [productName, setProductName] = useState('');
-  const [productPrice, setProductPrice] = useState('');
-
+function Form() {
+  const [productData, setProductData] = useState({ image: '', name: '', price: '' });
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(addProduct(productData));
+    setProductData({ image: '', name: '', price: '' });
+  };
 
-    // Dispatch an action to add the product to the Redux store
-    dispatch(addProduct({ name: productName, price: productPrice }));
-
-    // Clear the form fields
-    setProductName('');
-    setProductPrice('');
-  }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProductData({ ...productData, [name]: value });
+  };
 
   return (
     <div>
-      <h2>Add a New Product</h2>
+      <h2>Add a Product</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
-          <input
-            type="text"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Price:</label>
-          <input
-            type="number"
-            value={productPrice}
-            onChange={(e) => setProductPrice(e.target.value)}
-            required
-          />
-        </div>
+        <input type="text" name="image" placeholder="Image URL" value={productData.image} onChange={handleChange} />
+        <input type="text" name="name" placeholder="Product Name" value={productData.name} onChange={handleChange} />
+        <input type="number" name="price" placeholder="Price" value={productData.price} onChange={handleChange} />
         <button type="submit">Add Product</button>
       </form>
     </div>
   );
 }
 
-export default ProductForm;
+export default Form;
