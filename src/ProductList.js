@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-function ProductList() {
+function ProductDisplay() {
   const products = useSelector((state) => state.products);
 
   return (
@@ -10,7 +10,9 @@ function ProductList() {
       <ul>
         {products.map((product, index) => (
           <li key={index}>
-            <strong>Name:</strong> {product.name}, <strong>Price:</strong> ${product.price}
+            <img src={product.image} alt={product.name} />
+            <p>Name: {product.name}</p>
+            <p>Price: ${product.price}</p>
           </li>
         ))}
       </ul>
@@ -18,4 +20,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default ProductDisplay;
